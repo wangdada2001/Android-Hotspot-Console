@@ -1,0 +1,24 @@
+name: create-release
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    if: ${{ contains(github.event.head_commit.message, '[release]') }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v0.5.5
+          name: "v0.5.5 · Android Hotspot Console Lite"
+          body: |
+            Android Hotspot Console 0.5.5 lite / obfuscated（versionCode 73）。
+
+            安装：Magisk / Kitsune 里选择本 zip 覆盖安装，重启后解锁手机，浏览器打开 http://127.0.0.1:8080 。
+          files: Android_Hotspot_Console_0.5.5_lite_obfuscated.zip
+          draft: false
+          prerelease: false
